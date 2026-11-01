@@ -35,6 +35,21 @@ Then **restart the app**. This plugin has a host half (`lib/index.js`) and a bro
 half (`lib/client.js`); the host half loads at boot, and the browser half is served
 from the installed package, so neither picks up without a restart.
 
+### From a local checkout
+
+```sh
+dsh plugin --profile desktop add link:/absolute/path/to/dsh-model-advanced
+```
+
+or add the `link:` dependency to the profile's `package.json`, run `pnpm install` there,
+and restart. A linked package resolves its dependencies and peers from its own
+directory, so they must be installed there too.
+
+The shipped `cordis.patch.yml` names its entry **bare** (`dsh-model-advanced`), not
+relatively. A `link:` install's real directory sits outside `node_modules`, and this
+plugin imports Harness packages, so a bare name resolves through the profile's
+dependency mapping — a relative name would bypass it and the import would fail.
+
 To remove it:
 
 ```sh
