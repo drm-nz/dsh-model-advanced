@@ -29,7 +29,9 @@
   "files": [
     "lib",
     "README.md",
-    "docs"
+    "docs",
+    "cordis.patch.yml",
+    "LICENSE"
   ],
   "license": "MIT",
   "peerDependencies": {
