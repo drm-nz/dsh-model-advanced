@@ -16,6 +16,12 @@ agent actually needs cannot be expressed that way:
 This plugin adds a card at the bottom of the Models page that configures both, and
 implements the runtime behaviour behind them.
 
+![The Advanced model settings card at the bottom of Settings → Models, one row per model, with a Default reasoning level column and an Image understanding column](docs/advanced-model-settings.png)
+
+*The card this plugin adds, at the bottom of **Settings → Models**: a starting reasoning
+level for each model, and — for a model that cannot see — the model that reads images on
+its behalf.*
+
 ## Install
 
 Requires a [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) install
@@ -209,6 +215,7 @@ What that means in practice:
 | `lib/index.js` | Host half: config schema, prototype decorations, handoff, `inspect_image` |
 | `lib/client.js` | Browser half: the card in the Models page footer slot |
 | `cordis.patch.yml` | Bundle patch that inserts the plugin row |
+| `docs/advanced-model-settings.png` | Screenshot of the card, shown at the top |
 
 ## License
 
