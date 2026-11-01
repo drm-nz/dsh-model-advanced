@@ -132,6 +132,33 @@ The card writes this namespace; it can also be edited directly.
 Effort ids must match the adapter's own level ids; the card lists them, so pick from
 there rather than guessing.
 
+## Startup self-check
+
+Every boot, after the composition settles, the plugin appends one line to
+`~/.dsh/health.log` — the one place a silent degradation becomes visible:
+
+```
+2026-11-01T02:00:42Z dsh-model-advanced ok   patch=live tool=live defaults=2/2
+2026-11-01T02:00:42Z dsh-model-advanced warn patch=live tool=live defaults=1/2 stale=deepseek/old-model
+```
+
+- `patch` — the two prototype decorations are still the functions this plugin
+  installed. `dead` means a Harness internal moved and the defaults stop applying.
+- `tool` — `inspect_image` registered.
+- `defaults` — how many configured defaults were read back from
+  `resolveModelInfo` and found to name a level their model still offers. `stale=`
+  names the ones that do not, which is what a renamed effort id looks like.
+
+Read it with:
+
+```sh
+tail -n 2 ~/.dsh/health.log        # both plugins, when both are installed
+grep -v ' ok ' ~/.dsh/health.log   # only problems
+```
+
+Set `DSH_HEALTH_LOG` to write somewhere else. A diagnostics failure never stops the
+plugin from loading.
+
 ## Compatibility
 
 This plugin reaches into Harness internals rather than wrapping a public extension
@@ -143,8 +170,8 @@ What that means in practice:
 - **It fails soft, and silently.** Every decoration and hook is wrapped so that a
   failure leaves the turn exactly as it would have been. If a future Harness release
   renames `resolveModelInfo` or `resolveCallConfig`, the card still renders and saves
-  settings, but the defaults stop being applied — with no error. If a default stops
-  taking effect after an upgrade, check that first.
+  settings, but the defaults stop being applied — with no error in the UI. The startup
+  self-check is the detector: look for `patch=dead` in `~/.dsh/health.log` first.
 - **It is version-coupled.** Tested against the Harness build it was developed on.
 - **No automated tests.** The behaviour depends on a live composition (LLM runtime,
   settings documents, agent sessions) that is not practical to fake convincingly; the
