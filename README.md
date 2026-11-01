@@ -159,6 +159,16 @@ grep -v ' ok ' ~/.dsh/health.log   # only problems
 Set `DSH_HEALTH_LOG` to write somewhere else. A diagnostics failure never stops the
 plugin from loading.
 
+Verified on a real boot of DeepSeek Harness 0.2.1-rc.5 (macOS desktop profile) on
+2026-11-01, with five configured model defaults:
+
+```
+2026-11-01T02:03:32Z dsh-model-advanced ok   patch=live tool=live defaults=5/5
+```
+
+That line is the compatibility datapoint worth checking after you upgrade: it names the
+Harness version this plugin was last confirmed against.
+
 ## Compatibility
 
 This plugin reaches into Harness internals rather than wrapping a public extension
