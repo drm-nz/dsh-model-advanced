@@ -180,6 +180,22 @@ grep -v ' ok ' ~/.dsh/health.log   # only problems
 Set `DSH_HEALTH_LOG` to write somewhere else. A diagnostics failure never stops the
 plugin from loading.
 
+### The warning you see in the app
+
+A failed check is also raised in the client: the composer shows a warning toast — the
+same primitive the app's own notices use — saying how many defaults are not applying.
+It appears once per page load, retires on its own, and renders nothing at all when the
+plugin is healthy.
+
+The client decides this from the model catalogue rather than from a log: the host half
+reports the configured level as `reasoning.defaultEffort`, so a default that is
+configured but *not* reported means the decoration is gone. A model that is no longer
+in your configuration is ignored — that is stale configuration, not a broken seam.
+
+To see the warning deliberately, set a default to a reasoning level its model does not
+offer (the card lists only valid levels, so edit the settings document directly) and
+restart. Remove the entry and restart again to clear it.
+
 Verified on a real boot of DeepSeek Harness 0.2.1-rc.5 (macOS desktop profile) on
 2026-11-01, with five configured model defaults:
 
