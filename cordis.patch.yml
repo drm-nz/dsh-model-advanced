@@ -1,0 +1,8 @@
+# dsh-model-advanced bundle patch. The row names the package, not a relative
+# file: the Loader resolves bare package names against the profile's installed
+# dependencies, which is what lets the host half import Harness packages
+# (@deepseek-ai/schemastery) at all. A relative name would resolve beside this
+# file, outside that mapping, and the import would fail.
+- insert:
+    - id: model-advanced
+      name: dsh-model-advanced

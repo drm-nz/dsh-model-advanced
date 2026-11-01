@@ -1,0 +1,14 @@
+# Dependency and build output
+node_modules/
+
+# Secrets — this repo must never need one, so never let one land here
+.env
+.env.*
+*.pem
+*.key
+*.p12
+
+# Local noise
+.DS_Store
+*.log
+coverage/

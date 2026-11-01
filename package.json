@@ -1,0 +1,50 @@
+{
+  "name": "dsh-model-advanced",
+  "version": "0.1.0",
+  "description": "Per-model default reasoning effort and image handoff for text-only models.",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "reasoning-effort",
+    "vision",
+    "multimodal",
+    "image"
+  ],
+  "homepage": "https://github.com/drm-nz/dsh-model-advanced#readme",
+  "bugs": {
+    "url": "https://github.com/drm-nz/dsh-model-advanced/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drm-nz/dsh-model-advanced.git"
+  },
+  "author": "drm-nz",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@deepseek-ai/schemastery": "*",
+    "@deepseek-ai/dsh-llm": "*",
+    "@deepseek-ai/dsh-tools": "*"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-api-remotes"
+      ],
+      "platform": "web"
+    }
+  }
+}
